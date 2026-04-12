@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chengdu Family Trip Itinerary | 成都之旅</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e74c3c;
+            --primary-dark: #c0392b;
+            --secondary: #f39c12;
+            --bg: #faf8f5;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --border: #e0e0e0;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+            --panda-green: #27ae60;
+            --sichuan-red: #c0392b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--sichuan-red) 0%, #e74c3c 100%);
+            color: white;
+            padding: 2rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '🐼';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.1;
+            right: -50px;
+            top: -50px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            opacity: 0.9;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .trip-info {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            opacity: 0.95;
+        }
+
+        .trip-info span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sunset-info {
+            background: rgba(255,255,255,0.15);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            display: inline-block;
+        }
+
+        /* Navigation Tabs */
+        .nav-container {
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-tabs {
+            display: flex;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .nav-tab {
+            flex: 1;
+            min-width: 100px;
+            padding: 1.2rem 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-light);
+            position: relative;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-tab:hover {
+            color: var(--primary);
+        }
+
+        .nav-tab.active {
+            color: var(--primary);
+        }
+
+        .nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20%;
+            right: 20%;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .nav-tab .date-label {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            display: block;
+            margin-top: 0.2rem;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+        }
+
+        .day-section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .day-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .day-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .day-title {
+            font-size: 1.5rem;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+
+        .day-theme {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0.6rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        /* Activity Cards */
+        .activity-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid transparent;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .activity-card::before {
+            content: '';
+            position: absolute;
+            left: -1.85rem;
+            top: 1.8rem;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 3px solid var(--bg);
+            box-shadow: 0 0 0 3px var(--primary);
+        }
+
+        .activity-time {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .activity-type {
+            display: inline-block;
+            margin-left: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            background: #f0f0f0;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+        }
+
+        .activity-type.food { background: #fff3e0; color: #e65100; }
+        .activity-type.breakfast { background: #fff8e1; color: #f57f17; }
+        .activity-type.attraction { background: #e3f2fd; color: #1565c0; }
+        .activity-type.transport { background: #f3e5f5; color: #6a1b9a; }
+        .activity-type.hotel { background: #e8f5e9; color: #2e7d32; }
+        .activity-type.shopping { background: #fce4ec; color: #c2185b; }
+        .activity-type.sunset { background: #ffebee; color: #c62828; }
+
+        .activity-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: var(--text);
+        }
+
+        .activity-chinese {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 0.8rem;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+
+        .activity-preview {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .click-hint {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            margin: auto;
+            border-radius: 20px;
+            overflow: hidden;
+            transform: scale(0.9);
+            transition: transform 0.3s;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .modal-chinese {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+
+        .modal-body {
+            padding: 2rem;
+            overflow-y: auto;
+            max-height: calc(90vh - 120px);
+        }
+
+        /* Photo Gallery */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .photo-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            aspect-ratio: 4/3;
+            position: relative;
+            background: #f0f0f0;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .photo-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 1rem 0.5rem 0.5rem;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .photo-item:hover .photo-caption {
+            opacity: 1;
+        }
+
+        .photo-section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin: 1.5rem 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .baidu-map-link {
+            display: block;
+            background: #4285f4;
+            color: white;
+            padding: 1rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 1rem 0;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .baidu-map-link:active {
+            transform: scale(0.98);
+        }
+
+        .info-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .info-text {
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .highlight-box {
+            background: #fff8e1;
+            border-left: 4px solid var(--secondary);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1rem 0;
+        }
+
+        .timing-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1rem 0;
+        }
+
+        .tips-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tips-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .tips-list li::before {
+            content: '💡';
+            position: absolute;
+            left: 0;
+        }
+
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .tag {
+            background: #f0f0f0;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.5rem; }
+            .timeline { padding-left: 1.5rem; }
+            .activity-card::before { left: -1.35rem; }
+            .modal-content { width: 95%; max-height: 95vh; }
+            .modal-body { padding: 1.5rem; }
+            .photo-gallery { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* Panda decoration */
+        .panda-decoration {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 3rem;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .food-item {
+            text-align: center;
+        }
+
+        .food-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 0.5rem;
+        }
+
+        .food-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .food-chinese {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .instagram-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .sunset-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="header-content">
+            <h1>🐼 Chengdu Family Trip</h1>
+            <div class="subtitle">成都之旅 • 4 Days Itinerary</div>
+            <div class="trip-info">
+                <span>📅 June 25-29, 2025</span>
+                <span>👨‍👩‍👧‍👦 Family of 4</span>
+                <span>🏨 保利辉盛坊</span>
+            </div>
+            <div class="sunset-info">🌅 Sunset: ~20:10 (8:10 PM) | Best time for night views!</div>
+        </div>
+    </div>
+
+    <div class="nav-container">
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showDay(0)">
+                Day 1
+                <span class="date-label">Jun 25 Wed</span>
+            </button>
+            <button class="nav-tab" onclick="showDay(1)">
+                Day 2
+                <span class="date-label">Jun 26 Thu</span>
+            </button>
+            <button class="nav-tab" onclick="showDay(2)">
+                Day 3
+                <span class="date-label">Jun 27 Fri</span>
+            </button>
+            <button class="nav-tab" onclick="showDay(3)">
+                Day 4
+                <span class="date-label">Jun 28 Sat</span>
+            </button>
+            <button class="nav-tab" onclick="showDay(4)">
+                Day 5
+                <span class="date-label">Jun 29 Sun</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Day 1: Arrival -->
+        <div class="day-section active" id="day-0">
+            <div class="day-header">
+                <div class="day-title">Day 1: Arrival & First Taste</div>
+                <div class="day-theme">抵达成都 • 初识蓉城味道</div>
+            </div>
+            <div class="timeline">
+                <div class="activity-card" onclick="openModal(0)">
+                    <span class="activity-time">17:50</span>
+                    <span class="activity-type transport">Transport</span>
+                    <div class="activity-title">Chengdu Tianfu International Airport</div>
+                    <div class="activity-chinese">成都天府国际机场</div>
+                    <div class="activity-preview">Arrival on SQ842. Collect luggage and proceed to ground transportation.</div>
+                    <div class="click-hint">Tap for details & map →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(1)">
+                    <span class="activity-time">18:30</span>
+                    <span class="activity-type transport">Transport</span>
+                    <div class="activity-title">Didi to Hotel</div>
+                    <div class="activity-chinese">打车前往酒店</div>
+                    <div class="activity-preview">Take Didi taxi to Fraser Suites Chengdu (保利辉盛坊国际酒店公寓). Journey takes approximately 45 minutes.</div>
+                    <div class="click-hint">Tap for details & map →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(2)">
+                    <span class="activity-time">19:30</span>
+                    <span class="activity-type hotel">Hotel</span>
+                    <div class="activity-title">Fraser Suites Chengdu</div>
+                    <div class="activity-chinese">成都保利辉盛坊国际酒店公寓</div>
+                    <div class="activity-preview">Check-in and freshen up. Located in Financial City (金融城) area, southern Chengdu.</div>
+                    <div class="click-hint">Tap for details & map →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(3)">
+                    <span class="activity-time">20:00</span>
+                    <span class="activity-type food">Dinner</span>
+                    <div class="activity-title">Yulin Road Night Food</div>
+                    <div class="activity-chinese">玉林路夜市</div>
+                    <div class="activity-preview">Famous local food street. Try Yulin Chuanchuan Xiang (串串香) or Wangma Shousi Kaotu (hand-shredded spicy rabbit).</div>
+                    <div class="click-hint">Tap for details, photos & map →</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 2: Pandas & Culture (OPTIMIZED) -->
+        <div class="day-section" id="day-1">
+            <div class="day-header">
+                <div class="day-title">Day 2: Pandas & Ancient Culture</div>
+                <div class="day-theme">熊猫基地 • 武侯祠 • 锦里夜景</div>
+            </div>
+            <div class="timeline">
+                <div class="activity-card" onclick="openModal(4)">
+                    <span class="activity-time">08:30</span>
+                    <span class="activity-type attraction">Must-See</span>
+                    <div class="activity-title">Chengdu Research Base of Giant Panda Breeding</div>
+                    <div class="activity-chinese">成都大熊猫繁育研究基地</div>
+                    <div class="activity-preview">See active pandas at Moon/Sun Nursery. Best viewing time 8:30-10:30 AM. Book tickets in advance!</div>
+                    <div class="click-hint">Tap for details, photos & map →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(24)">
+                    <span class="activity-time">12:00</span>
+                    <span class="activity-type breakfast">Brunch</span>
+                    <div class="activity-title">Late Breakfast at Base</div>
+                    <div class="activity-chinese">熊猫基地简餐</div>
+                    <div class="activity-preview">Quick bite at Panda Base or nearby. Try local snacks before heading to next stop.</div>
+                    <div class="click-hint">Tap for details →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(26)">
+                    <span class="activity-time">14:00</span>
+                    <span class="activity-type hotel">Rest</span>
+                    <div class="activity-title">Hotel Rest Break</div>
+                    <div class="activity-chinese">酒店休息</div>
+                    <div class="activity-preview">Return to hotel for afternoon rest. You'll need energy for evening exploration!</div>
+                    <div class="click-hint">Tap for details →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(6)">
+                    <span class="activity-time">16:00</span>
+                    <span class="activity-type attraction">History</span>
+                    <div class="activity-title">Wuhou Shrine <span class="sunset-badge">🌅 Golden Hour</span></div>
+                    <div class="activity-chinese">武侯祠</div>
+                    <div class="activity-preview">Perfect afternoon light for red wall photos! Visit BEFORE sunset for best shots.</div>
+                    <div class="click-hint">Tap for details, photos & map →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(5)">
+                    <span class="activity-time">17:30</span>
+                    <span class="activity-type sunset">Day→Night</span>
+                    <div class="activity-title">Jinli Ancient Street <span class="sunset-badge">🏮 Lanterns at 20:10</span></div>
+                    <div class="activity-chinese">锦里古街</div>
+                    <div class="activity-preview">Arrive before sunset, stay for magical lantern lighting! Walk from Wuhou Shrine (2 min).</div>
+                    <div class="click-hint">Tap for details, photos & map →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(8)">
+                    <span class="activity-time">20:30</span>
+                    <span class="activity-type food">Dinner</span>
+                    <div class="activity-title">Chen Mapo Tofu</div>
+                    <div class="activity-chinese">陈麻婆豆腐</div>
+                    <div class="activity-preview">Legendary restaurant where Mapo Tofu was invented. Near Kuixinglou Street.</div>
+                    <div class="click-hint">Tap for details, photos & map →</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 3: City Center (OPTIMIZED - ONE HOTPOT ONLY) -->
+        <div class="day-section" id="day-2">
+            <div class="day-header">
+                <div class="day-title">Day 3: Modern Chengdu & Hotpot Night</div>
+                <div class="day-theme">春熙路 • 太古里 • 宽窄巷子 • 九眼桥</div>
+            </div>
+            <div class="timeline">
+                <div class="activity-card" onclick="openModal(25)">
+                    <span class="activity-time">09:00</span>
+                    <span class="activity-type breakfast">Breakfast</span>
+                    <div class="activity-title">Chengdu Breakfast Classics</div>
+                    <div class="activity-chinese">成都传统早餐</div>
+                    <div class="activity-preview">Start with Douhua (spicy tofu pudding), Zhong Shuijiao, or Dandan Noodles near hotel.</div>
+                    <div class="click-hint">Tap for details & photos →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(9)">
+                    <span class="activity-time">10:00</span>
+                    <span class="activity-type attraction">Iconic</span>
+                    <div class="activity-title">IFS Chengdu & Climbing Panda</div>
+                    <div class="activity-chinese">IFS国际金融中心</div>
+                    <div class="activity-preview">Photo with famous 15m climbing panda sculpture. See panda butt at entrance, head on 7F rooftop.</div>
+                    <div class="click-hint">Tap for details, photos & map →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(10)">
+                    <span class="activity-time">11:30</span>
+                    <span class="activity-type shopping">Shopping</span>
+                    <div class="activity-title">Taikoo Li Chengdu</div>
+                    <div class="activity-chinese">成都远洋太古里</div>
+                    <div class="activity-preview">Open-air shopping district blending modern boutiques with ancient Daci Temple architecture.</div>
+                    <div class="click-hint">Tap for details, photos & map →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(11)">
+                    <span class="activity-time">13:00</span>
+                    <span class="activity-type food">Lunch</span>
+                    <div class="activity-title">Sichuan Cuisine Lunch</div>
+                    <div class="activity-chinese">川菜午餐</div>
+                    <div class="activity-preview">Try Meizhou Dongpo or local restaurant for Gongbao Jiding, Hui Guo Rou - save room for hotpot dinner!</div>
+                    <div class="click-hint">Tap for details & photos →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(12)">
+                    <span class="activity-time">15:00</span>
+                    <span class="activity-type sunset">Day→Night</span>
+                    <div class="activity-title">Kuanzhai Alley <span class="sunset-badge">🏮 Lanterns at 20:10</span></div>
+                    <div class="activity-chinese">宽窄巷子</div>
+                    <div class="activity-preview">Arrive mid-afternoon, stay as lanterns turn on! Explore Wide/Narrow/Well alleys.</div>
+                    <div class="click-hint">Tap for details, photos & map →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(13)">
+                    <span class="activity-time">19:30</span>
+                    <span class="activity-type food">Dinner</span>
+                    <div class="activity-title">Huangcheng Laoma Hotpot <span class="tag" style="background:#e74c3c;color:white;margin-left:0.5rem;">THE Hotpot</span></div>
+                    <div class="activity-chinese">皇城老妈火锅</div>
+                    <div class="activity-preview">THE hotpot experience of your trip! Elegant decor, family-friendly spice level.</div>
+                    <div class="click-hint">Tap for details, photos & map →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(14)">
+                    <span class="activity-time">20:30</span>
+                    <span class="activity-type attraction">Night View</span>
+                    <div class="activity-title">Jiuyan Bridge Night View <span class="sunset-badge">🌉 Best after 20:30</span></div>
+                    <div class="activity-chinese">九眼桥夜景</div>
+                    <div class="activity-preview">Perfect timing! Arrive after sunset for full bridge illumination. Spectacular night photos!</div>
+                    <div class="click-hint">Tap for details, photos & map →</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 4: Temple & Shopping -->
+        <div class="day-section" id="day-3">
+            <div class="day-header">
+                <div class="day-title">Day 4: Temple & Shopping Day</div>
+                <div class="day-theme">文殊院 • 环球中心购物</div>
+            </div>
+            <div class="timeline">
+                <div class="activity-card" onclick="openModal(25)">
+                    <span class="activity-time">09:00</span>
+                    <span class="activity-type breakfast">Breakfast</span>
+                    <div class="activity-title">Chengdu Breakfast Classics</div>
+                    <div class="activity-chinese">成都传统早餐</div>
+                    <div class="activity-preview">Douhua, Zhong Dumplings, or Dandan Noodles - start your day with local flavors.</div>
+                    <div class="click-hint">Tap for details & photos →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(15)">
+                    <span class="activity-time">09:30</span>
+                    <span class="activity-type attraction">Temple</span>
+                    <div class="activity-title">Wenshu Monastery</div>
+                    <div class="activity-chinese">文殊院</div>
+                    <div class="activity-preview">Ancient Buddhist temple founded in 605-617 AD. Free incense and tea. Iconic red walls for photography.</div>
+                    <div class="click-hint">Tap for details, photos & map →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(16)">
+                    <span class="activity-time">12:00</span>
+                    <span class="activity-type food">Lunch</span>
+                    <div class="activity-title">Classic Chengdu Snacks</div>
+                    <div class="activity-chinese">传统成都小吃</div>
+                    <div class="activity-preview">Try Zhong Shuijiao (钟水饺), Long Chaoshou (龙抄手), and Dandan Noodles (担担面) near Wenshu.</div>
+                    <div class="click-hint">Tap for details & photos →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(17)">
+                    <span class="activity-time">14:00</span>
+                    <span class="activity-type shopping">Shopping</span>
+                    <div class="activity-title">Global Center</div>
+                    <div class="activity-chinese">环球中心</div>
+                    <div class="activity-preview">World's largest building by floor area. Shopping mall, water park, food court, and entertainment.</div>
+                    <div class="click-hint">Tap for details & map →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(18)">
+                    <span class="activity-time">19:00</span>
+                    <span class="activity-type food">Dinner</span>
+                    <div class="activity-title">Local Sichuan Restaurant</div>
+                    <div class="activity-chinese">川菜馆</div>
+                    <div class="activity-preview">Try Hui Guo Rou (回锅肉/Twice-cooked pork) and Gongbao Jiding (宫保鸡丁/Kung Pao Chicken) near hotel.</div>
+                    <div class="click-hint">Tap for details →</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 5: Departure -->
+        <div class="day-section" id="day-4">
+            <div class="day-header">
+                <div class="day-title">Day 5: Departure</div>
+                <div class="day-theme">杜甫草堂 • 返程</div>
+            </div>
+            <div class="timeline">
+                <div class="activity-card" onclick="openModal(25)">
+                    <span class="activity-time">08:00</span>
+                    <span class="activity-type breakfast">Breakfast</span>
+                    <div class="activity-title">Final Chengdu Breakfast</div>
+                    <div class="activity-chinese">最后早餐</div>
+                    <div class="activity-preview">Enjoy one last Douhua or dumplings before departure.</div>
+                    <div class="click-hint">Tap for details →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(19)">
+                    <span class="activity-time">09:00</span>
+                    <span class="activity-type hotel">Hotel</span>
+                    <div class="activity-title">Check-out</div>
+                    <div class="activity-chinese">退房</div>
+                    <div class="activity-preview">Check-out from hotel. Store luggage if needed before final sightseeing.</div>
+                    <div class="click-hint">Tap for details →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(20)">
+                    <span class="activity-time">09:30</span>
+                    <span class="activity-type attraction">Optional</span>
+                    <div class="activity-title">Du Fu Thatched Cottage</div>
+                    <div class="activity-chinese">杜甫草堂</div>
+                    <div class="activity-preview">Peaceful gardens and bamboo forests. Former residence of Tang Dynasty poet Du Fu. Optional if time permits.</div>
+                    <div class="click-hint">Tap for details & map →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(21)">
+                    <span class="activity-time">12:00</span>
+                    <span class="activity-type food">Lunch</span>
+                    <div class="activity-title">Final Lunch</div>
+                    <div class="activity-chinese">告别午餐</div>
+                    <div class="activity-preview">Meizhou Dongpo (眉州东坡) or revisit your favorite dish from the trip.</div>
+                    <div class="click-hint">Tap for details →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(22)">
+                    <span class="activity-time">14:00</span>
+                    <span class="activity-type transport">Airport</span>
+                    <div class="activity-title">Depart for Airport</div>
+                    <div class="activity-chinese">前往机场</div>
+                    <div class="activity-preview">Didi to Chengdu Tianfu Airport (~45 mins). Collect luggage and check-in for SQ842.</div>
+                    <div class="click-hint">Tap for details & map →</div>
+                </div>
+
+                <div class="activity-card" onclick="openModal(23)">
+                    <span class="activity-time">18:25</span>
+                    <span class="activity-type transport">Flight</span>
+                    <div class="activity-title">Departure SQ842</div>
+                    <div class="activity-chinese">航班起飞</div>
+                    <div class="activity-preview">Safe travels! Hope you enjoyed Chengdu's pandas, food, and culture.</div>
+                    <div class="click-hint">Tap for details →</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeModal()">×</button>
+                <div class="modal-title" id="modal-title">Place Name</div>
+                <div class="modal-chinese" id="modal-chinese">中文名称</div>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <div class="panda-decoration">🐼</div>
+
+    <script>
+        // Activity data with detailed information, photos, and Baidu Map links
+        const activities = [
+            {
+                title: "Chengdu Tianfu International Airport",
+                chinese: "成都天府国际机场",
+                type: "transport",
+                description: "Chengdu's primary international airport located in Jianyang, approximately 50km southeast of the city center. Opened in 2021, it's one of China's largest and most modern airports.",
+                highlights: ["International Terminal T1", "Domestic Terminal T2", "Direct subway connection (Line 18)", "Free shuttle to Tianfu Square"],
+                tips: ["Keep your passport handy for any verification", "Airport WiFi requires SMS verification", "Currency exchange available at arrival hall", "Starbucks and convenience stores open 24h"],
+                tags: ["Arrival", "TFU", "Airport"],
+                mapUrl: "http://api.map.baidu.com/marker?location=30.3076,104.4466&title=成都天府国际机场&content=成都天府国际机场&output=html&src=webapp.chengdutrip",
+                photos: []
+            },
+            {
+                title: "Didi to Hotel",
+                chinese: "打车前往酒店",
+                type: "transport",
+                description: "Taking Didi (China's Uber) from Tianfu Airport to Fraser Suites in Financial City area. The journey takes approximately 45-60 minutes depending on traffic.",
+                highlights: ["Cost: ~¥80-120 RMB", "Use Alipay's Didi mini-program", "No Chinese phone number needed with Alipay", "Air-conditioned comfort after long flight"],
+                tips: ["Select 'Express' or 'Premier' for larger vehicle (family of 4 with luggage)", "Show hotel address in Chinese: 成都保利辉盛坊国际酒店公寓", "Toll fees (~¥20) may be added to fare", "Download Didi app or use Alipay/WeChat mini-program"],
+                tags: ["Transport", "Didi", "Airport Transfer"],
+                mapUrl: "http://api.map.baidu.com/direction?origin=latlng:30.3076,104.4466|name:天府机场&destination=latlng:30.5833,104.0667|name:保利辉盛坊&mode=driving&coord_type=gcj02&output=html&src=webapp.chengdutrip",
+                photos: []
+            },
+            {
+                title: "Fraser Suites Chengdu",
+                chinese: "成都保利辉盛坊国际酒店公寓",
+                type: "hotel",
+                description: "Located in the Financial City (金融城) area in southern Chengdu, part of the Poly International Plaza. Serviced apartments with kitchen facilities, ideal for families.",
+                highlights: ["Address: 高新区天府大道北段", "Near Financial City Metro Station", "Serviced apartments with kitchen", "Swimming pool and gym facilities"],
+                tips: ["Request high floor for better city view", "Family rooms available with 2 bedrooms", "Nearby convenience stores: 7-Eleven, FamilyMart", "Breakfast buffet usually 6:30-10:00 AM"],
+                tags: ["Hotel", "Financial City", "Serviced Apartment"],
+                mapUrl: "http://api.map.baidu.com/marker?location=30.5833,104.0667&title=成都保利辉盛坊国际酒店公寓&content=成都保利辉盛坊国际酒店公寓&output=html&src=webapp.chengdutrip",
+                photos: []
+            },
+            {
+                title: "Yulin Road Night Food",
+                chinese: "玉林路夜市",
+                type: "food",
+                description: "Famous local food street featured in the song 'Chengdu' by Zhao Lei. A vibrant neighborhood with authentic local eateries, street food, and the iconic 'Little酒馆' bar.",
+                highlights: ["Yulin Chuanchuan Xiang (玉林串串香) - skewer hotpot", "Wangma Shousi Kaotu (王妈手撕烤兔) - spicy rabbit", "Various street snacks and BBQ", "Local nightlife atmosphere"],
+                tips: ["Go after 8 PM for full atmosphere", "Skewers are priced by stick (¥0.5-2 per stick)", "Spicy level: ask for 'weila' (微辣/mild)", "Rabbit is a local specialty - don't miss it!"],
+                tags: ["Food", "Night Market", "Local", "Yulin"],
+                instagramable: true,
+                mapUrl: "http://api.map.baidu.com/marker?location=30.6389,104.0556&title=玉林路&content=玉林路夜市&output=html&src=webapp.chengdutrip",
+                photos: [
+                    {url: "https://kimi-web-img.moonshot.cn/img/static.wixstatic.com/12a3532cca7070762db501c06bbd7f6697dd2919.jpeg", caption: "Yulin Road Night Market atmosphere"}
+                ],
+                foodPhotos: [
+                    {name: "Skewer Hotpot", chinese: "串串香", url: "https://kimi-web-img.moonshot.cn/img/lostplate.com/1d35e9b7cfdd751fc1469407ffbfc2705779be24.jpg"},
+                    {name: "Spicy Rabbit", chinese: "手撕烤兔", url: "https://kimi-web-img.moonshot.cn/img/img.alicdn.com/fde8e11f27766776bc0b0d2e748e2a30020c36f9.jpg"}
+                ]
+            },
+            {
+                title: "Chengdu Research Base of Giant Panda Breeding",
+                chinese: "成都大熊猫繁育研究基地",
+                type: "attraction",
+                description: "The world's leading panda research facility and the best place to see giant pandas in their natural habitat. Home to over 100 pandas including babies and red pandas.",
+                highlights: ["Moon & Sun Nursery (baby pandas)", "Red Panda Enclosure", "Panda Kindergarten", "Panda Museum", "Swan Lake"],
+                tips: ["MUST arrive by 8:30 AM - pandas are most active and eating", "Book tickets online 7 days in advance (¥55/person)", "Take Didi to 'South Gate' - less crowded", "Wear comfortable walking shoes - lots of walking uphill", "Bring mosquito repellent", "Weekends are extremely crowded"],
+                tags: ["Must-See", "Pandas", "Nature", "Early Morning"],
+                instagramable: true,
+                mapUrl: "http://api.map.baidu.com/marker?location=30.7336,104.1475&title=成都大熊猫繁育研究基地&content=成都大熊猫繁育研究基地&output=html&src=webapp.chengdutrip",
+                photos: [
+                    {url: "https://kimi-web-img.moonshot.cn/img/news.cgtn.com/d8e4ca33543039cfb1278769f8c6eea133464cf7.jpeg", caption: "Adorable baby panda at the base"},
+                    {url: "https://kimi-web-img.moonshot.cn/img/media.odynovotours.com/7546c8ea4e6348a95e2472bff22ebce7dd165b0e.jpg", caption: "Baby pandas in nursery"}
+                ]
+            },
+            {
+                title: "Jinli Ancient Street",
+                chinese: "锦里古街",
+                type: "sunset",
+                description: "A 350-meter pedestrian street dating back to the Three Kingdoms period, adjacent to Wuhou Shrine. Famous for traditional Sichuan snacks and crafts. ARRIVE BEFORE SUNSET (20:10) to see the magical lantern lighting!",
+                highlights: ["Sanda Pao (三大炮) - glutinous rice balls", "Tang You Guozi (糖油果子) - sweet fried dough", "Bobo Chicken (钵钵鸡) - cold skewers", "Feichang Fen (肥肠粉) - spicy pork intestine noodles", "Shadow puppet performances", "RED LANTERNS turn on at sunset!"],
+                tips: ["ARRIVE 17:30-18:00 to see day AND night versions", "Red lanterns turn on around 20:10 (sunset)", "Most magical time: 19:00-21:00 with lanterns", "Prices are touristy but worth the atmosphere", "Connected to Wuhou Shrine - walk between them"],
+                tags: ["Street Food", "Historic", "Night View", "Must-See Evening"],
+                instagramable: true,
+                mapUrl: "http://api.map.baidu.com/marker?location=30.6456,104.0444&title=锦里古街&content=锦里古街&output=html&src=webapp.chengdutrip",
+                photos: [
+                    {url: "https://kimi-web-img.moonshot.cn/img/www.zhangjiajietourguide.com/8a0ff9b426d60da7d2cfc27cc6614f1e4bb229f1.jpg", caption: "Jinli Ancient Street at night with red lanterns"}
+                ],
+                foodPhotos: [
+                    {name: "Sanda Pao (Three Cannons)", chinese: "三大炮", url: "https://kimi-web-img.moonshot.cn/img/pic4.zhimg.com/2909dcdaf05becced0f02e9a7838c186d42ba2ef.jpg"},
+                    {name: "Tang You Guozi", chinese: "糖油果子", url: "https://kimi-web-img.moonshot.cn/img/cdn.i-scmp.com/fa711cab27f08486ce7145353c925285f2ee7826.jpg"},
+                    {name: "Bobo Chicken", chinese: "钵钵鸡", url: "https://kimi-web-img.moonshot.cn/img/gbaike-image.cdn.bcebos.com/a8935952bc09800bb5259c26f40856187932f476.jpg"},
+                    {name: "Feichang Fen", chinese: "肥肠粉", url: "https://kimi-web-img.moonshot.cn/img/gbaike-image.cdn.bcebos.com/f253c897817034d4fe7c99d1d45a6a280caa3d70.jpg"}
+                ]
+            },
+            {
+                title: "Wuhou Shrine",
+                chinese: "武侯祠",
+                type: "attraction",
+                description: "The only temple in China dedicated to both a ruler (Liu Bei) and his minister (Zhuge Liang) from the Three Kingdoms period. Built in 223 AD. Visit at 16:00 for PERFECT afternoon light on the famous red walls!",
+                highlights: ["Red Wall Corridor (perfect for photos)", "Bamboo Forest paths", "Hall of Zhuge Liang", "Liu Bei's Tomb", "Three Kingdoms cultural relics"],
+                tips: ["BEST TIME: 16:00-17:30 (golden hour for photos)", "Entry: ¥50/person", "Red walls are most photogenic in afternoon light", "Connects directly to Jinli (2 min walk)", "Audio guides available at entrance", "Allow 1.5 hours before heading to Jinli"],
+                tags: ["History", "Three Kingdoms", "Photography", "Culture"],
+                instagramable: true,
+                mapUrl: "http://api.map.baidu.com/marker?location=30.6425,104.0472&title=武侯祠&content=武侯祠&output=html&src=webapp.chengdutrip",
+                photos: [
+                    {url: "https://kimi-web-img.moonshot.cn/img/img.peapix.com/4c7047b99c3eb548c10cd950dfde22f2b768dc4b.jpg", caption: "Famous red walls with bamboo grove - Instagram hotspot"},
+                    {url: "https://kimi-web-img.moonshot.cn/img/thumbs.dreamstime.com/238d11c2aec05a97fe4b504d3a2e9b2a425be679.jpg", caption: "Iconic red wall corridor"}
+                ]
+            },
+            {
+                title: "Heming Teahouse at People's Park",
+                chinese: "人民公园鹤鸣茶社",
+                type: "attraction",
+                description: "A 100-year-old traditional teahouse located in People's Park (Rennin Gongyuan). The most authentic place to experience Chengdu's teahouse culture.",
+                highlights: ["Covered-bowl tea (盖碗茶)", "Traditional ear cleaning massage (采耳)", "Lake views", "Mahjong games", "Chengdu slow lifestyle"],
+                tips: ["Tea: ¥20-50 per person depending on type", "Ear cleaning: ¥30-60 (negotiate price first!)", "Sit by the lake for best atmosphere", "Stay 1-2 hours to soak in the vibe", "Try 'zhongyao' (Chinese medicine) foot massage nearby"],
+                tags: ["Culture", "Tea", "Relaxation", "Must-Do"],
+                instagramable: true,
+                mapUrl: "http://api.map.baidu.com/marker?location=30.6625,104.0556&title=鹤鸣茶社&content=人民公园鹤鸣茶社&output=html&src=webapp.chengdutrip",
+                photos: [
+                    {url: "https://kimi-web-img.moonshot.cn/img/chengdu-expat.com/76fa3222fe9cd914293c009bf35cae03b8ef971c.jpeg", caption: "Traditional Heming Teahouse entrance"}
+                ]
+            },
+            {
+                title: "Chen Mapo Tofu",
+                chinese: "陈麻婆豆腐",
+                type: "food",
+                description: "The legendary restaurant where Mapo Tofu was invented in 1862. Located on Kuixinglou Street, this is the original and most authentic version of the famous dish.",
+                highlights: ["Original Mapo Tofu (麻婆豆腐)", "Gongbao Jiding (宫保鸡丁)", "Hui Guo Rou (回锅肉)", "Authentic Sichuan atmosphere", "Reasonable prices"],
+                tips: ["Address: 青羊区奎星楼街", "Expect to queue during peak hours", "Mapo tofu has 6 spice levels - choose carefully!", "Family-style sharing recommended", "Arrive by 6 PM to avoid long waits"],
+                tags: ["Dinner", "Legendary", "Sichuan Cuisine", "Tofu"],
+                mapUrl: "http://api.map.baidu.com/marker?location=30.6750,104.0583&title=陈麻婆豆腐&content=陈麻婆豆腐(青华路店)&output=html&src=webapp.chengdutrip",
+                foodPhotos: [
+                    {name: "Mapo Tofu", chinese: "麻婆豆腐", url: "https://kimi-web-img.moonshot.cn/img/www.chinasichuanfood.com/c4c34ab4d7e15a8c9d35a27de39f6ccf03de7bb7.webp"}
+                ]
+            },
+            {
+                title: "IFS Chengdu & Climbing Panda",
+                chinese: "IFS国际金融中心",
+                type: "attraction",
+                description: "Chengdu's premier luxury shopping mall featuring the iconic 15-meter climbing panda sculpture by artist Lawrence Argent. A must-photo spot in Chengdu.",
+                highlights: ["15m Panda sculpture (butt view at entrance)", "Rooftop panda head (7th floor)", "Luxury brand shopping", "Direct connection to Chunxi Road", "Giant panda IMAX"],
+                tips: ["Rooftop garden is free to access", "Best photo spot: ground floor looking up", "Queue for panda head photo can be 30+ mins", "Opens 10:00 AM", "Combine with Taikoo Li visit"],
+                tags: ["Iconic", "Shopping", "Panda", "Photos"],
+                instagramable: true,
+                mapUrl: "http://api.map.baidu.com/marker?location=30.6575,104.0819&title=IFS国际金融中心&content=IFS国际金融中心&output=html&src=webapp.chengdutrip",
+                photos: [
+                    {url: "https://kimi-web-img.moonshot.cn/img/thumbs.dreamstime.com/aa810a6b9228abeeb9fdcd02cfe98cfe703be0ba.jpg", caption: "Famous climbing panda sculpture at IFS"}
+                ]
+            },
+            {
+                title: "Taikoo Li Chengdu",
+                chinese: "成都远洋太古里",
+                type: "shopping",
+                description: "An open-air shopping district built around the historic Daci Temple. Blends modern architecture with traditional Sichuan-style buildings.",
+                highlights: ["Daci Temple (1,600 years old)", "Apple Store (unique design)", "International luxury brands", "Al fresco dining", "Traditional courtyards"],
+                tips: ["Best visited in morning for photos", "Temple is free to enter", "Many cafes with outdoor seating", "Evening atmosphere is romantic", "Connected to IFS and Chunxi Road"],
+                tags: ["Shopping", "Luxury", "Architecture", "Temple"],
+                instagramable: true,
+                mapUrl: "http://api.map.baidu.com/marker?location=30.6556,104.0806&title=成都远洋太古里&content=成都远洋太古里&output=html&src=webapp.chengdutrip",
+                photos: [
+                    {url: "https://kimi-web-img.moonshot.cn/img/chengdu-expat.com/2c78e5018b96694d55230c0853687f7ed2759c80.jpg", caption: "Taikoo Li aerial view - blend of ancient and modern"}
+                ]
+            },
+            {
+                title: "Sichuan Cuisine Lunch",
+                chinese: "川菜午餐",
+                type: "food",
+                description: "Enjoy classic Sichuan dishes at a reputable restaurant. Perfect opportunity to try Kung Pao Chicken and Twice-cooked pork before your hotpot dinner.",
+                highlights: ["Gongbao Jiding (宫保鸡丁) - Kung Pao Chicken", "Hui Guo Rou (回锅肉) - Twice-cooked pork", "Yu Xiang Rou Si (鱼香肉丝) - Fish-fragrant pork", "Local atmosphere", "Family-friendly"],
+                tips: ["Try Meizhou Dongpo (眉州东坡) chain for reliable quality", "Order 'shaola' (少辣) for less spice", "Rice is usually free/refillable", "Lunch sets often cheaper than dinner"],
+                tags: ["Lunch", "Sichuan", "Family", "Classic"],
+                mapUrl: "http://api.map.baidu.com/marker?location=30.6750,104.0800&title=眉州东坡&content=眉州东坡(春熙路店)&output=html&src=webapp.chengdutrip",
+                foodPhotos: [
+                    {name: "Kung Pao Chicken", chinese: "宫保鸡丁", url: "https://kimi-web-img.moonshot.cn/img/www.chinasichuanfood.com/3154a40e5eb0c443c41dc854142a562855dcd877.jpg"}
+                ]
+            },
+            {
+                title: "Kuanzhai Alley",
+                chinese: "宽窄巷子",
+                type: "sunset",
+                description: "Three parallel alleys (Wide, Narrow, and Well) showcasing Qing Dynasty architecture. The most visited cultural site in Chengdu after the Panda Base. ARRIVE 15:00 to see both day and night versions!",
+                highlights: ["Kuan Alley (Wide) - traditional courtyards", "Zhai Alley (Narrow) - trendy shops", "Jing Alley (Well) - food street", "Traditional architecture", "Cultural performances", "LANTERNS turn on at sunset!"],
+                tips: ["ARRIVE 15:00-17:00 for best experience", "Lanterns turn on around 20:10 (sunset time)", "See day version → sunset transition → night lanterns", "Free entry", "Very crowded on weekends", "Allow 3-4 hours total"],
+                tags: ["Historic", "Walking", "Architecture", "Culture", "Night View"],
+                instagramable: true,
+                mapUrl: "http://api.map.baidu.com/marker?location=30.6694,104.0556&title=宽窄巷子&content=宽窄巷子&output=html&src=webapp.chengdutrip",
+                photos: [
+                    {url: "https://kimi-web-img.moonshot.cn/img/static.wixstatic.com/069ff6d1094fc9e51e771faac26932ce2c471024.jpg", caption: "Kuanzhai Alley traditional architecture"}
+                ]
+            },
+            {
+                title: "Huangcheng Laoma Hotpot",
+                chinese: "皇城老妈火锅",
+                type: "food",
+                description: "Established in 1986, this is one of Chengdu's most prestigious hotpot restaurants. Known for elegant decor and milder, more refined flavors suitable for families. THE ONLY HOTPOT OF YOUR TRIP - make it count!",
+                highlights: ["Traditional palace-style decor", "Milder broth (family-friendly)", "High-quality beef and lamb", "Beautiful presentation", "Qintai Road location"],
+                tips: ["THE hotpot experience of your trip!", "More expensive than average hotpot (~¥150/person)", "Reservations recommended", "Good for those who can't handle extreme spice", "Try the 'laoma' special beef", "Beautiful garden setting"],
+                tags: ["Hotpot", "Dinner", "Family-Friendly", "Upscale", "Must-Do"],
+                mapUrl: "http://api.map.baidu.com/marker?location=30.6639,104.0556&title=皇城老妈火锅&content=皇城老妈(琴台店)&output=html&src=webapp.chengdutrip",
+                foodPhotos: [
+                    {name: "Sichuan Hotpot", chinese: "四川火锅", url: "https://kimi-web-img.moonshot.cn/img/lostplate.com/1d35e9b7cfdd751fc1469407ffbfc2705779be24.jpg"}
+                ]
+            },
+            {
+                title: "Jiuyan Bridge Night View",
+                chinese: "九眼桥夜景",
+                type: "attraction",
+                description: "A historic bridge dating back to the Ming Dynasty, now the center of Chengdu's nightlife district. The illuminated bridge reflects beautifully on the river. BEST TIME: 20:30-21:00 when fully dark!",
+                highlights: ["Anshun Bridge (安顺廊桥) - lit up at night", "Bar street along the river", "Live music venues", "Night photography spots", "Chengdu's 'Lan Kwai Fong'"],
+                tips: ["BEST TIME: 20:30-21:00 (fully dark, all lights on)", "Arrive after hotpot dinner (19:30)", "Many bars offer outdoor seating", "Can take a river cruise (optional)", "Safe area with police presence", "Perfect for night photography!"],
+                tags: ["Nightlife", "Views", "Bars", "Photography", "Must-See Night"],
+                instagramable: true,
+                mapUrl: "http://api.map.baidu.com/marker?location=30.6389,104.0889&title=九眼桥&content=九眼桥酒吧街&output=html&src=webapp.chengdutrip",
+                photos: [
+                    {url: "https://kimi-web-img.moonshot.cn/img/i0.wp.com/5b3dd6cfcc19b6399f72276ca6d4e52a30246431.webp", caption: "Stunning night view of Jiuyan Bridge"},
+                    {url: "https://kimi-web-img.moonshot.cn/img/ak-d.tripcdn.com/96282cb95389684ab5d36c48844a279ee2cc17aa.jpg", caption: "Anshun Bridge illuminated at night - perfect for photos"}
+                ]
+            },
+            {
+                title: "Wenshu Monastery",
+                chinese: "文殊院",
+                type: "attraction",
+                description: "Chengdu's best-preserved Buddhist temple, founded during the Tang Dynasty (605-617 AD). Dedicated to Manjushri (Wenshu), the Bodhisattva of Wisdom.",
+                highlights: ["Ancient Buddhist architecture", "Free incense offering", "Vegetarian restaurant inside", "Tea house", "Red walls for photography", "Buddhist scripture library"],
+                tips: ["Free entry", "Open 8:00 AM - 5:00 PM", "Dress modestly (cover shoulders/knees)", "Vegetarian lunch available (~¥30/person)", "Peaceful atmosphere - quiet please", "Adjacent to traditional teahouse area"],
+                tags: ["Temple", "Buddhism", "Peaceful", "Culture"],
+                instagramable: true,
+                mapUrl: "http://api.map.baidu.com/marker?location=30.6750,104.0667&title=文殊院&content=文殊院&output=html&src=webapp.chengdutrip",
+                photos: [
+                    {url: "https://kimi-web-img.moonshot.cn/img/chengdutravels.com/f6ca14360d24aa6d34493998fc149363b0d793c3.webp", caption: "Wenshu Monastery iconic red and yellow walls"}
+                ]
+            },
+            {
+                title: "Classic Chengdu Snacks",
+                chinese: "传统成都小吃",
+                type: "food",
+                description: "Chengdu's 'Three Guns' of street food - must-try traditional snacks available near Wenshu Monastery and throughout the city.",
+                highlights: ["Zhong Shuijiao (钟水饺) - sweet & spicy dumplings", "Long Chaoshou (龙抄手) - Sichuan wontons", "Dandan Noodles (担担面) - spicy sesame noodles", "Douhua (豆花) - silken tofu", "Suanlamian (酸辣粉) - hot & sour noodles"],
+                tips: ["Dongzikou Zhang'er Liangfen (洞子口张老二凉粉) is famous near Wenshu", "Snacks are cheap (¥10-20 per dish)", "Share multiple dishes to try variety", "Sweet water noodles (甜水面) are a local breakfast", "Ask for less spicy if needed"],
+                tags: ["Snacks", "Budget", "Traditional", "Street Food"],
+                mapUrl: "http://api.map.baidu.com/marker?location=30.6750,104.0667&title=洞子口张老二凉粉&content=洞子口张老二凉粉&output=html&src=webapp.chengdutrip",
+                foodPhotos: [
+                    {name: "Zhong Shuijiao", chinese: "钟水饺", url: "https://kimi-web-img.moonshot.cn/img/blog.themalamarket.com/10eba72123a8443fb79ddf884ef542851e8cfec8.jpg"},
+                    {name: "Dan Dan Noodles", chinese: "担担面", url: "https://kimi-web-img.moonshot.cn/img/omnivorescookbook.com/c9e94bc725c3b68c4265a7a562f18a5bb4f7fc94.jpg"}
+                ]
+            },
+            {
+                title: "Global Center",
+                chinese: "环球中心",
+                type: "shopping",
+                description: "The world's largest building by floor area (1.76 million sq meters). A massive complex containing shopping, hotels, offices, a water park, and an IMAX theater.",
+                highlights: ["Paradise Island Water Park (indoor)", "Hundreds of retail stores", "Food court with global options", "IMAX cinema", "Roller skating rink", "Artificial beach"],
+                tips: ["Located in southern Chengdu - near your hotel!", "Water park requires separate ticket (~¥200)", "Plan 3-4 hours minimum", "Air-conditioned - great for hot days", "Weekends are very crowded with families", "Free shuttle bus from Financial City area"],
+                tags: ["Shopping", "Entertainment", "Water Park", "Family"],
+                mapUrl: "http://api.map.baidu.com/marker?location=30.5667,104.0667&title=环球中心&content=成都环球中心&output=html&src=webapp.chengdutrip",
+                photos: []
+            },
+            {
+                title: "Local Sichuan Restaurant",
+                chinese: "川菜馆",
+                type: "food",
+                description: "For your final dinner, try authentic Sichuan dishes at a local restaurant near your hotel in Financial City area.",
+                highlights: ["Hui Guo Rou (回锅肉) - Twice-cooked pork", "Gongbao Jiding (宫保鸡丁) - Kung Pao Chicken", "Yu Xiang Rou Si (鱼香肉丝) - Fish-fragrant pork", "Mapo Tofu variations", "Local atmosphere"],
+                tips: ["Ask hotel concierge for nearby recommendations", "Financial City has many restaurant options", "Try 'chuancai' (川菜) restaurants", "Order 'shaola' (少辣) for less spice", "Rice is usually free/refillable"],
+                tags: ["Dinner", "Local", "Sichuan", "Family"],
+                mapUrl: "http://api.map.baidu.com/place/search?query=川菜&location=30.5833,104.0667&radius=1000&region=成都&output=html&src=webapp.chengdutrip",
+                foodPhotos: []
+            },
+            {
+                title: "Check-out",
+                chinese: "退房",
+                type: "hotel",
+                description: "Final morning at Fraser Suites. Prepare for departure.",
+                highlights: ["Check-out time: usually 12:00 PM", "Luggage storage available", "Airport shuttle can be arranged", "Final billing settlement"],
+                tips: ["Request late check-out if needed (may incur fee)", "Double-check room for belongings", "Keep Didi app ready for airport transfer", "Allow 45-60 mins to airport", "International flight: arrive 3 hours early"],
+                tags: ["Hotel", "Departure", "Logistics"],
+                mapUrl: "http://api.map.baidu.com/marker?location=30.5833,104.0667&title=保利辉盛坊&content=成都保利辉盛坊国际酒店公寓&output=html&src=webapp.chengdutrip",
+                photos: []
+            },
+            {
+                title: "Du Fu Thatched Cottage",
+                chinese: "杜甫草堂",
+                type: "attraction",
+                description: "The former residence of Du Fu, one of China's greatest poets from the Tang Dynasty. A peaceful garden complex with bamboo groves and traditional architecture.",
+                highlights: ["Thatched cottage replica", "Du Fu's poetry exhibits", "Bamboo forest paths", "Traditional gardens", "Tang Dynasty architecture", "Peaceful atmosphere"],
+                tips: ["Entry: ¥50/person", "Allow 1.5-2 hours", "Optional if time permits", "Beautiful in morning light", "Less crowded than Panda Base", "Good for literature/history enthusiasts"],
+                tags: ["Optional", "Poetry", "Gardens", "Culture"],
+                mapUrl: "http://api.map.baidu.com/marker?location=30.6583,104.0250&title=杜甫草堂&content=杜甫草堂&output=html&src=webapp.chengdutrip",
+                photos: []
+            },
+            {
+                title: "Final Lunch",
+                chinese: "告别午餐",
+                type: "food",
+                description: "One last Sichuan meal before departure. Choose a favorite or try something new.",
+                highlights: ["Meizhou Dongpo (眉州东坡) - upscale Sichuan chain", "Revisit favorite hotpot", "Try Chuan Chuan Xiang (skewers)", "Hot and sour noodles"],
+                tips: ["Choose near hotel or airport route", "Allow time for airport transfer", "Avoid overly spicy food before flight", "Save room for airplane meal", "Take photos of favorite dishes!"],
+                tags: ["Lunch", "Farewell", "Sichuan"],
+                mapUrl: "http://api.map.baidu.com/marker?location=30.6750,104.0800&title=眉州东坡&content=眉州东坡&output=html&src=webapp.chengdutrip",
+                foodPhotos: []
+            },
+            {
+                title: "Depart for Airport",
+                chinese: "前往机场",
+                type: "transport",
+                description: "Transfer from hotel to Chengdu Tianfu International Airport for your departure.",
+                highlights: ["Journey: 45-60 minutes", "Cost: ¥80-120 by Didi", "Alternative: Airport Line 18 subway", "Check-in counters close 45 mins before departure"],
+                tips: ["Leave hotel by 14:00 for 18:25 flight", "International flight: arrive 3 hours early", "Have passport and boarding pass ready", "Duty-free available after immigration", "Last chance for panda souvenirs at airport"],
+                tags: ["Transport", "Airport", "Departure"],
+                mapUrl: "http://api.map.baidu.com/direction?origin=latlng:30.5833,104.0667|name:保利辉盛坊&destination=latlng:30.3076,104.4466|name:天府机场&mode=driving&coord_type=gcj02&output=html&src=webapp.chengdutrip",
+                photos: []
+            },
+            {
+                title: "Departure SQ842",
+                chinese: "航班起飞",
+                type: "transport",
+                description: "Your Singapore Airlines flight departs at 18:25. End of your Chengdu adventure!",
+                highlights: ["Flight: SQ842", "Time: 18:25", "Reflect on your panda and food adventures!", "Start planning your return visit"],
+                tips: ["Charge devices at airport before boarding", "Buy last-minute souvenirs", "Chengdu airport has good dining options", "Safe travels and come back soon!"],
+                tags: ["Flight", "Departure", "End"],
+                photos: []
+            },
+            // Additional entries
+            {
+                title: "Late Breakfast at Base",
+                chinese: "熊猫基地简餐",
+                type: "breakfast",
+                description: "Quick breakfast or brunch options at or near the Panda Base before continuing your sightseeing.",
+                highlights: ["Simple cafe at Panda Base", "Nearby local eateries", "Quick noodles or baozi", "Snacks to keep energy up"],
+                tips: ["Don't expect gourmet food - it's touristy", "Bring snacks if picky", "Focus is on pandas, not food", "Eat enough to last until Jinli"],
+                tags: ["Breakfast", "Quick", "Practical"],
+                mapUrl: "http://api.map.baidu.com/marker?location=30.7336,104.1475&title=熊猫基地&content=成都大熊猫繁育研究基地&output=html&src=webapp.chengdutrip",
+                photos: []
+            },
+            {
+                title: "Chengdu Breakfast Classics",
+                chinese: "成都传统早餐",
+                type: "breakfast",
+                description: "Start your day with authentic Chengdu breakfast dishes. These are commonly found near your hotel or throughout the city.",
+                highlights: ["Douhua (豆花) - Spicy tofu pudding", "Zhong Shuijiao (钟水饺) - Sweet & spicy dumplings", "Dandan Noodles (担担面) - Sesame & meat noodles", "Sweet Water Noodles (甜水面)", "Baozi (包子) - Steamed buns"],
+                tips: ["Douhua is spicy - ask for less chili if needed", "Breakfast spots open early (6-9 AM)", "Look for crowded local shops", "Very affordable (¥10-20 per person)", "Try near Wenshu Monastery for authentic versions"],
+                tags: ["Breakfast", "Traditional", "Must-Try", "Local"],
+                mapUrl: "http://api.map.baidu.com/place/search?query=早餐&location=30.5833,104.0667&radius=500&region=成都&output=html&src=webapp.chengdutrip",
+                foodPhotos: [
+                    {name: "Douhua (Tofu Pudding)", chinese: "豆花", url: "https://kimi-web-img.moonshot.cn/img/blog.themalamarket.com/7e12bfdbe4f8a8297ac2af5d930be7ee54a3a69e.jpg"},
+                    {name: "Zhong Shuijiao", chinese: "钟水饺", url: "https://kimi-web-img.moonshot.cn/img/blog.themalamarket.com/10eba72123a8443fb79ddf884ef542851e8cfec8.jpg"},
+                    {name: "Dan Dan Noodles", chinese: "担担面", url: "https://kimi-web-img.moonshot.cn/img/omnivorescookbook.com/c9e94bc725c3b68c4265a7a562f18a5bb4f7fc94.jpg"},
+                    {name: "Sweet Water Noodles", chinese: "甜水面", url: "https://kimi-web-img.moonshot.cn/img/ak-d.tripcdn.com/51fb4bfdc952ea0fc3fd1910776bba8bd85e5c14.jpg"},
+                    {name: "Baozi (Steamed Buns)", chinese: "包子", url: "https://kimi-web-img.moonshot.cn/img/thewoksoflife.com/7696d0f433b380da93cb9a06a0c51f039c37efbe.jpg"}
+                ]
+            },
+            {
+                title: "Hotel Rest Break",
+                chinese: "酒店休息",
+                type: "hotel",
+                description: "Return to hotel for afternoon rest. This is important - you'll need energy for the evening exploration of Wuhou Shrine and Jinli!",
+                highlights: ["Rest and recharge", "Cool down from morning heat", "Freshen up", "Prepare for evening activities"],
+                tips: ["Take a short nap if needed", "Have some snacks at hotel", "Charge your phones/cameras", "Leave hotel by 15:30 to arrive Wuhou Shrine by 16:00"],
+                tags: ["Rest", "Hotel", "Practical"],
+                mapUrl: "http://api.map.baidu.com/marker?location=30.5833,104.0667&title=保利辉盛坊&content=成都保利辉盛坊国际酒店公寓&output=html&src=webapp.chengdutrip",
+                photos: []
+            }
+        ];
+
+        function showDay(dayIndex) {
+            // Hide all sections
+            document.querySelectorAll('.day-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected day
+            document.getElementById(`day-${dayIndex}`).classList.add('active');
+            document.querySelectorAll('.nav-tab')[dayIndex].classList.add('active');
+        }
+
+        function openModal(index) {
+            const activity = activities[index];
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modal-title');
+            const chinese = document.getElementById('modal-chinese');
+            const body = document.getElementById('modal-body');
+            
+            title.textContent = activity.title;
+            chinese.textContent = activity.chinese;
+            
+            let highlightsHtml = activity.highlights.map(h => `<li>${h}</li>`).join('');
+            let tipsHtml = activity.tips.map(t => `<li>${t}</li>`).join('');
+            let tagsHtml = activity.tags.map(t => `<span class="tag">${t}</span>`).join('');
+            
+            // Build Baidu Map link - using simple HTML anchor tag
+            let mapHtml = '';
+            if (activity.mapUrl) {
+                mapHtml = `
+                    <a href="${activity.mapUrl}" target="_blank" class="baidu-map-link" rel="noopener noreferrer">
+                        📍 Open in Baidu Map 百度地图
+                    </a>
+                `;
+            }
+            
+            // Build photo gallery HTML
+            let photosHtml = '';
+            if (activity.photos && activity.photos.length > 0) {
+                const instagramBadge = activity.instagramable ? '<span class="instagram-badge">📸 Instagrammable</span>' : '';
+                photosHtml += `
+                    <div class="photo-section-title">📷 Photos ${instagramBadge}</div>
+                    <div class="photo-gallery">
+                        ${activity.photos.map(photo => `
+                            <div class="photo-item">
+                                <img src="${photo.url}" alt="${photo.caption}" loading="lazy">
+                                <div class="photo-caption">${photo.caption}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            // Build food photos HTML
+            let foodPhotosHtml = '';
+            if (activity.foodPhotos && activity.foodPhotos.length > 0) {
+                foodPhotosHtml += `
+                    <div class="photo-section-title">🍽️ What to Eat</div>
+                    <div class="food-grid">
+                        ${activity.foodPhotos.map(food => `
+                            <div class="food-item">
+                                <img src="${food.url}" alt="${food.name}" loading="lazy">
+                                <div class="food-name">${food.name}</div>
+                                <div class="food-chinese">${food.chinese}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            // Timing box for sunset/day-night transition spots
+            let timingHtml = '';
+            if (activity.type === 'sunset') {
+                timingHtml = `
+                    <div class="timing-box">
+                        <div class="info-label">🌅 Perfect Timing Strategy</div>
+                        <div class="info-text">
+                            <strong>Sunset on your dates: 20:10 (8:10 PM)</strong><br>
+                            Arrive in late afternoon to see both day AND night versions!<br>
+                            Lanterns turn on around sunset time.
+                        </div>
+                    </div>
+                `;
+            }
+            
+            body.innerHTML = `
+                ${mapHtml}
+                ${photosHtml}
+                ${foodPhotosHtml}
+                ${timingHtml}
+                
+                <div class="info-section">
+                    <div class="info-label">About</div>
+                    <div class="info-text">${activity.description}</div>
+                </div>
+                
+                <div class="highlight-box">
+                    <div class="info-label">Highlights</div>
+                    <ul class="tips-list">
+                        ${highlightsHtml}
+                    </ul>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label">💡 Travel Tips</div>
+                    <ul class="tips-list">
+                        ${tipsHtml}
+                    </ul>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-label">Tags</div>
+                    <div class="tag-container">
+                        ${tagsHtml}
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event) {
+            if (!event || event.target.id === 'modal' || event.target.className === 'modal-close') {
+                document.getElementById('modal').classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+</html>
